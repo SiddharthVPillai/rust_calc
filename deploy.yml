@@ -6,7 +6,7 @@
   tasks:
     - name: Pull Docker Image
       docker_image:
-        name: "spe_rust/calculator"
+        name: "0siddharth/calculator"
         source: pull
       register: docker_pull_result
 
