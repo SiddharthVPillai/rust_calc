@@ -29,8 +29,8 @@ pipeline {
             steps {
                 script{
                     docker.withRegistry('', 'DockerHubCred') {
-                    sh 'docker tag rust_calc spe_rust/calculator:latest'
-                    sh 'docker push spe_rust/calculator'
+                    sh 'docker tag rust_calc 0siddharth/calculator:latest'
+                    sh 'docker push 0siddharth/calculator'
                     }
                  }
             }

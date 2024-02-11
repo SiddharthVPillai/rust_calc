@@ -19,4 +19,4 @@
         name: docker
         state: started
     - name: Running container
-      shell: docker run -it -d --name rust_calc spe_rust/calculator
+      shell: docker run -it -d --name rust_calc 0siddharth/calculator
