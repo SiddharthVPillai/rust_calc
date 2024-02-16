@@ -16,6 +16,15 @@ pipeline {
             }
         }
 
+        stage('Unit testing') {
+            steps {
+                script {
+                    // Checkout the code from the GitHub repository
+                    sh 'cargo test'
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 script {
