@@ -1,6 +1,31 @@
 // use std::{intrinsics::{sqrtf32, sqrtf64}, io};
 use std:: io;
 
+#[cfg(test)]
+mod tests{
+    use super::*;
+
+    #[test]
+    fn sq_root_test(){
+        assert_eq!(square_root(4 as f32),2 as f32);
+    }
+
+    #[test]
+    fn factorial_test(){
+        assert_eq!(fact(4),24);
+    }
+
+    #[test]
+    fn log_test(){
+        assert_eq!(log_base_e(10 as f32),2.3025851);
+    }
+
+    #[test]
+    fn power_test(){
+        assert_eq!(power(2 as f32,3),8 as f32);
+    }
+}
+
 fn fact (x:i32) -> i32 {
     if x==0 {
         return 1;
@@ -15,6 +40,18 @@ fn fact (x:i32) -> i32 {
     }
 
     res
+}
+
+fn square_root(x : f32)->f32{
+    x.sqrt()
+}
+
+fn log_base_e(x:f32)->f32{
+    x.ln()
+}
+
+fn power(x:f32, y:i32)->f32{
+    x.powi(y)
 }
 
 fn main() {
@@ -41,7 +78,7 @@ fn main() {
                     println!("Undefined")
                 }
                 else{
-                    println!("Square root of {} is {}",x,x.sqrt());
+                    println!("Square root of {} is {}",x,square_root(x));
                 }
             }
     
@@ -68,7 +105,7 @@ fn main() {
                     println!("Undefined");
                 }
                 else{
-                    println!("Natural log of {} is {} ",x,x.ln());
+                    println!("Natural log of {} is {} ",x,log_base_e(x));
                 }
             }
     
@@ -82,7 +119,7 @@ fn main() {
                 io::stdin().read_line(&mut y).expect("Failed to read a line");
                 let y:i32 = y.trim().parse().expect("Not a number");
                 
-                println!("{} to power {} is {} ",x,y,x.powi(y));
+                println!("{} to power {} is {} ",x,y,power(x, y));
             }
             
             5 => break,
