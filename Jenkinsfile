@@ -20,6 +20,7 @@ pipeline {
             steps {
                 script {
                     // Checkout the code from the GitHub repository
+                    sh 'cd rust_calc'
                     sh 'cargo test'
                 }
             }
