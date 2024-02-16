@@ -4,6 +4,9 @@ pipeline {
     environment {
         DOCKER_IMAGE_NAME = 'rust_calc'
         GITHUB_REPO_URL = 'https://github.com/SiddharthVPillai/rust_calc.git'
+        RUST_VERSION = '1.56.0'
+    
+        PATH = "${env.HOME}/.cargo/bin:${env.PATH}"
     }
 
     stages {
@@ -12,19 +15,44 @@ pipeline {
                 script {
                     // Checkout the code from the GitHub repository
                     git branch: 'main', url: "${GITHUB_REPO_URL}"
+                    
                 }
             }
         }
-
-        stage('Unit testing') {
+        stage('Unit test') {
             steps {
-                script {
-                    // Checkout the code from the GitHub repository
-                    sh 'cd rust_calc'
+                // Install Rust, configure Rust version, etc.
+                // This step might be unnecessary if Rust is already installed on the Jenkins agent
+                
+                // sh 'curl https://sh.rustup.rs -sSf | sh -s -- -y'
+                // echo "verion"
+                
+                dir('rust_calc') {
+                    // Run cargo commands
+                    sh 'cargo build'
                     sh 'cargo test'
                 }
+                // sh 'cargo --version'
+                // sh 'cargo build'
             }
         }
+        
+        // stage('Build') {
+        //     steps {
+        //         // Build the Rust project
+                
+        //     }
+        // }
+
+        // stage('Unit testing') {
+        //     steps {
+        //         script {
+        //             // Checkout the code from the GitHub repository
+        //             // sh 'cargo build'
+                    
+        //         }
+        //     }
+        // }
 
         stage('Build Docker Image') {
             steps {
@@ -46,7 +74,7 @@ pipeline {
             }
         }
 
-   stage('Run Ansible Playbook') {
+  stage('Run Ansible Playbook') {
             steps {
                 script {
                     ansiblePlaybook(
